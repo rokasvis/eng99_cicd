@@ -37,3 +37,4 @@ Docker is the one of the best virtualization platform to containerise your app, 
 > Enter same passphrase again: [Type passphrase again]
 ```
 - Copy `keyname.pub` into github to create the key
+- ls ssh folder
