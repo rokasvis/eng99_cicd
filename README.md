@@ -20,3 +20,20 @@ What is a CI CD Pipeline: The CI/CD pipeline is all about automation: Initiating
 ## Docker
 
 Docker is the one of the best virtualization platform to containerise your app, popularity and adoption of Docker is rapidly growing due to its incredible benefits! Top companies like ING, Paypal, ADP, and Spotify keep using Docker. Continuous Integration Efficiency with Docker enables you to build a container image and use that same image across every step of the deployment process. A huge benefit of this is the ability to separate non-dependent steps and run them in parallel, running applications in containers instead of virtual machines is gaining momentum in the IT industry.
+
+## Generating SSH key
+
+- Open git bash
+- ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+- When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location. 
+```
+> Enter a file in which to save the key (/c/Users/you/.ssh/id_algorithm):[Press enter]
+```
+
+- At the prompt, type a secure passphrase. For more information, see "Working with SSH key passphrases." 
+
+```
+> Enter passphrase (empty for no passphrase): [Type a passphrase]
+> Enter same passphrase again: [Type passphrase again]
+```
+- Copy `keyname.pub` into github to create the key
