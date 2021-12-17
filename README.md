@@ -22,10 +22,10 @@ What is a CI CD Pipeline: The CI/CD pipeline is all about automation: Initiating
 
 Docker is the one of the best virtualization platform to containerise your app, popularity and adoption of Docker is rapidly growing due to its incredible benefits! Top companies like ING, Paypal, ADP, and Spotify keep using Docker. Continuous Integration Efficiency with Docker enables you to build a container image and use that same image across every step of the deployment process. A huge benefit of this is the ability to separate non-dependent steps and run them in parallel, running applications in containers instead of virtual machines is gaining momentum in the IT industry.
 
-## Generating SSH key
+## Generating and saving SSH key
 
 - Open git bash
-- ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+- `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`
 - When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location. 
 ```
 > Enter a file in which to save the key (/c/Users/you/.ssh/id_algorithm):[Press enter]
@@ -37,5 +37,59 @@ Docker is the one of the best virtualization platform to containerise your app, 
 > Enter passphrase (empty for no passphrase): [Type a passphrase]
 > Enter same passphrase again: [Type passphrase again]
 ```
-- Copy `keyname.pub` into github to create the key
-- ls ssh folder
+- Copy `keyname.pub` into github to create the key (PUBLIC KEY)
+
+
+![](Images/chrome_zhebepNZT4.png)
+![](Images/chrome_tIRkwF5vyQ.png)
+
+- Click on `New SSH Key` and paste the key content
+
+## Setting up Jenkins server
+
+- Create a new instance within your VPC for jenkins server
+- I used Ubunt 18.04 AMI 
+- Set up Security Group for Jenkins server
+- Open port `8080` to access Jenkins
+- Port `22` to ssh into the instance
+
+![](Images/chrome_JXQtYiDU14.png)
+- SSH into your new jenkins instance
+- Install Java
+- `sudo apt update`
+- `sudo apt install openjdk-11-jdk`
+- Install Jenkins
+
+
+```
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+```
+- Use `http://publicip:8080` to get into Jenkins interface
+
+## Jenkins plugins
+
+- This job will require following plugis:
+    - NodeJS Plugin
+    - GitHub Plugin
+    - Amazon EC2 Plugin
+    - SSH Agent Plugin
+
+## Creating Jenkins jobs
+
+- Create a new to provide jenkis access to your github repo
+
+![](Images/repo_settings.png)
+- Deploy keys
+- Create webhook within the same setting page
+- `http://publicip:8080/github-webhook/`
+- New Item > Freestyle project
+- Specify which GitHub repo you will use
+
+![](Images/job_repo.png)
+
